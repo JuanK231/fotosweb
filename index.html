@@ -1,91 +1,13 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Slideshow de Fotos de Instagram con Nombre de Usuario</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/>
-	<style>
-		.slider {
-			margin: 0 auto;
-			max-width: 600px;
-		}
-		.slide {
-			text-align: center;
-		}
-		.slide img {
-			max-height: 600px;
-		}
-		.slide .username {
-			font-size: 20px;
-			margin-top: 20px;
-		}
-	</style>
-</head>
-<body>
-	<div class="slider">
-	</div>
-
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
-	<script>
-		$(document).ready(function(){
-			var token = 'IGQVJVQVpzZA3JibXNuN1RiYXdxU0xsbFpwcVh1ZAUMxVDgzT3lYWWJaeU5UeHVCa2VRand5WHh3QnExeWtFTjRidXJnZAFhRZAHRMY3IxWnFzQlFfYUFNOXROWEdZAUWJ6ZADRDYWkzcEtLUllpTXp6T1RIbAZDZD';
-			var username = 'juan_carlos_pubill';
-			var url = 'https://graph.instagram.com/' + username + '/media?fields=id,caption,media_type,media_url,thumbnail_url,permalink,username&access_token=' + token;
-			var images = [];
-			var index = 0;
-			var timer = null;
-			var noNewImagesTimer = null;
-			var intervalTime = 8000;
-			var noNewImagesTime = 60000;
-
-			function resetTimer() {
-				clearTimeout(timer);
-				timer = setTimeout(function() {
-					showNextImage();
-				}, intervalTime);
-			}
-
-			function showNextImage() {
-				if(images.length > 0) {
-					$('.slider').slick('slickNext');
-					index++;
-					if(index >= images.length) {
-						index = 0;
-					}
-					resetTimer();
-				} else {
-					clearTimeout(noNewImagesTimer);
-					noNewImagesTimer = setTimeout(function() {
-						$.get(url, function(data){
-							$.each(data.data, function(index, value){
-								if(value.media_type == 'IMAGE') {
-									images.push({url: value.media_url, username: value.username});
-								}
-							});
-							if(images.length > 0) {
-								$('.slider').slick('removeSlide', null, null, null, true);
-								$.each(images, function(index, value){
-									$('.slider').slick('slickAdd', '<div class="slide"><img src="' + value.url + '"><div class="username">@' + value.username + '</div></div>');
-								});
-								index = 0;
-								resetTimer();
-							} else {
-								resetNoNewImagesTimer();
-							}
-						});
-					}, noNewImagesTime);
-				}
-			}
-
-			function resetNoNewImagesTimer() {
-				clearTimeout(noNewImagesTimer);
-				noNewImagesTimer = setTimeout(function() {
-					showNextImage();
-				}, intervalTime);
-			}
-
-			$.get(url, function(data){
-				$.each(data.data, function(index, value){
-					if(value.media
+  <head>
+    <meta charset="UTF-8">
+    <title>Hola Mundo</title>
+  </head>
+  <body>
+    <h1 id="saludo"></h1>
+    <script>
+      document.getElementById("saludo").innerHTML = "Hola Mundo";
+    </script>
+  </body>
+</html>
